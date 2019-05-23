@@ -4,8 +4,6 @@ import org.apache.avro.Schema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayDeque;
 import java.util.Optional;
 import java.util.Queue;
@@ -18,13 +16,13 @@ import static com.github.dfauth.avro.TypeConsumer.typeOf;
 public class CompilerSchemaHandler implements SchemaHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(CompilerSchemaHandler.class);
-    private final CompilationCustomization customization;
 
     private Queue<Schema> queue = new ArrayDeque<>();
     private Stack<Schema> stack = new Stack<>();
+    private Consumer<Schema> consumer;
 
-    public CompilerSchemaHandler(CompilationCustomization customization) {
-        this.customization = customization;
+    public CompilerSchemaHandler(Consumer<Schema> consumer) {
+        this.consumer = consumer;
     }
 
     @Override
@@ -107,17 +105,7 @@ public class CompilerSchemaHandler implements SchemaHandler {
     }
 
     private void stage2() {
-        processQueue(s -> {
-            try {
-                OutputStream ostream = customization.getOutputStream(s);
-                customization.render(s, ostream);
-                ostream.flush();
-                ostream.close();
-            } catch (IOException e) {
-                logger.error(e.getMessage(), e);
-                throw new RuntimeException(e);
-            }
-        });
+        processQueue(consumer);
     }
 
     private void processQueue(Consumer<Schema> consumer) {
