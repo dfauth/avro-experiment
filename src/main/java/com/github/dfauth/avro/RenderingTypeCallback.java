@@ -36,7 +36,7 @@ public class RenderingTypeCallback implements TypeCallback<Renderer> {
     }
 
     @Override
-    public com.github.dfauth.avro.Renderer fixedType(Schema s) {
+    public com.github.dfauth.avro.Renderer enumType(Schema s) {
         return new FixedTypeRender(s);
     }
 
@@ -97,7 +97,7 @@ public class RenderingTypeCallback implements TypeCallback<Renderer> {
                         return "T";
                     }
                     @Override
-                    public String fixedType(Schema s) {
+                    public String enumType(Schema s) {
                         return "Enum";
                     }
                     @Override

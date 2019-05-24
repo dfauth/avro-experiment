@@ -34,7 +34,7 @@ public class FunctionTypeCallback<T> implements TypeCallback<T> {
     }
 
     @Override
-    public T fixedType(Schema s) {
+    public T enumType(Schema s) {
         return f.apply(s);
     }
 

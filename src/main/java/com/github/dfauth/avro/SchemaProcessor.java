@@ -45,7 +45,7 @@ public class SchemaProcessor {
             }
 
             @Override
-            public SchemaProcessor fixedType(Schema s) {
+            public SchemaProcessor enumType(Schema s) {
                 return new SimpleSchemaProcessor(handler);
             }
 

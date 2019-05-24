@@ -16,7 +16,7 @@ public interface TypeCallback<T> {
                 return callback.unionType(s);
             case ENUM:
             case FIXED:
-                return callback.fixedType(s);
+                return callback.enumType(s);
             case STRING: case BYTES:
             case INT: case LONG:
             case FLOAT: case DOUBLE:
@@ -34,7 +34,7 @@ public interface TypeCallback<T> {
 
     T unionType(Schema s);
 
-    T fixedType(Schema s);
+    T enumType(Schema s);
 
     T simpleType(Schema s);
 }
