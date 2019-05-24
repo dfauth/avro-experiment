@@ -8,4 +8,8 @@ public class EnumModel extends Model {
     public EnumModel(Schema s) {
         super(s);
     }
+
+    @Override
+    public void resolve(Resolver resolver) {
+    }
 }

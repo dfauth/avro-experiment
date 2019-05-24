@@ -8,4 +8,7 @@ public class PrimitiveModel extends Model {
     public PrimitiveModel(Schema s) {
         super(s);
     }
+
+    @Override
+    public void resolve(Resolver resolver) {}
 }

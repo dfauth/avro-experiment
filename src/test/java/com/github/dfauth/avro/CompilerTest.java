@@ -1,6 +1,8 @@
 package com.github.dfauth.avro;
 
 import com.github.dfauth.avro.model.*;
+import com.github.dfauth.avro.renderer.Renderer;
+import com.github.dfauth.avro.renderer.JavaRenderer;
 import org.apache.avro.Schema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,8 +12,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.github.dfauth.avro.AvroTypeCallback.typeOf;
 
 
 public class CompilerTest {
@@ -23,8 +23,6 @@ public class CompilerTest {
         CompilationCustomization customization = new CompilationCustomization() {
             @Override
             public void render(Schema s, OutputStream ostream) {
-                Renderer renderer = typeOf(s, new RenderingTypeCallback());
-                renderer.render(this, s, ostream);
             }
 
         };
@@ -51,6 +49,16 @@ public class CompilerTest {
             modelMap.put(s, AvroTypeModelFactory.typeOf(s));
         });
         new SchemaProcessor(handler).process(AvroSchemaBuilder.createSchema());
+
+        modelMap.values().forEach(m -> {
+            m.resolve(schema -> modelMap.get(schema));
+        });
+
+        Renderer renderer = new JavaRenderer("target/generated");
+        modelMap.values().forEach(m -> {
+            renderer.render(m);
+        });
+
     }
 
 }
