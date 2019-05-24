@@ -2,9 +2,9 @@ package com.github.dfauth.avro;
 
 import org.apache.avro.Schema;
 
-public interface TypeCallback<T> {
+public interface AvroTypeCallback<T> {
 
-    static <T> T typeOf(Schema s, TypeCallback<T> callback) {
+    static <T> T typeOf(Schema s, AvroTypeCallback<T> callback) {
         switch (s.getType()) {
             case RECORD:
                 return callback.recordType(s);

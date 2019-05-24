@@ -11,7 +11,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.github.dfauth.avro.TypeCallback.typeOf;
+import static com.github.dfauth.avro.AvroTypeCallback.typeOf;
 
 
 public class CompilerTest {
@@ -48,38 +48,7 @@ public class CompilerTest {
         Map<Schema, Model> modelMap = new HashMap<>();
         CompilerSchemaHandler handler = new CompilerSchemaHandler(s -> {
             logger.info("process schema: "+s);
-            Model model = typeOf(s, new TypeCallback<Model>() {
-                @Override
-                public Model recordType(Schema s) {
-                    return new RecordModel(s);
-                }
-
-                @Override
-                public Model mapType(Schema s) {
-                    return new MapModel(s);
-                }
-
-                @Override
-                public Model arrayType(Schema s) {
-                    return new ArrayModel(s);
-                }
-
-                @Override
-                public Model unionType(Schema s) {
-                    return new UnionModel(s);
-                }
-
-                @Override
-                public Model enumType(Schema s) {
-                    return new EnumModel(s);
-                }
-
-                @Override
-                public Model simpleType(Schema s) {
-                    return new PrimitiveModel(s);
-                }
-            });
-            modelMap.put(s, model);
+            modelMap.put(s, AvroTypeModelFactory.typeOf(s));
         });
         new SchemaProcessor(handler).process(AvroSchemaBuilder.createSchema());
     }

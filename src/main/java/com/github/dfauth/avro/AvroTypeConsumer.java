@@ -2,9 +2,9 @@ package com.github.dfauth.avro;
 
 import org.apache.avro.Schema;
 
-public interface TypeConsumer {
+public interface AvroTypeConsumer {
 
-    static void typeOf(Schema s, TypeConsumer consumer) {
+    static void typeOf(Schema s, AvroTypeConsumer consumer) {
         switch (s.getType()) {
             case RECORD:
                 consumer.acceptRecordSchema(s);

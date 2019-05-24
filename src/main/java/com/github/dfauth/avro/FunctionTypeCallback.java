@@ -5,7 +5,7 @@ import org.apache.avro.Schema;
 import java.util.function.Function;
 
 
-public class FunctionTypeCallback<T> implements TypeCallback<T> {
+public class FunctionTypeCallback<T> implements AvroTypeCallback<T> {
 
     private final Function<Schema, T> f;
 

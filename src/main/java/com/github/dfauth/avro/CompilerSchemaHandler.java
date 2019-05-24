@@ -10,7 +10,7 @@ import java.util.Queue;
 import java.util.Stack;
 import java.util.function.Consumer;
 
-import static com.github.dfauth.avro.TypeConsumer.typeOf;
+import static com.github.dfauth.avro.AvroTypeConsumer.typeOf;
 
 
 public class CompilerSchemaHandler implements SchemaHandler {
@@ -73,7 +73,7 @@ public class CompilerSchemaHandler implements SchemaHandler {
     /** Recursively enqueue schemas that need a class generated. */
     private void enqueue(Schema schema) {
         if (queue.contains(schema)) return;
-        typeOf(schema, new TypeConsumer() {
+        typeOf(schema, new AvroTypeConsumer() {
             @Override
             public void acceptRecordSchema(Schema s) {
                 queue.add(schema);

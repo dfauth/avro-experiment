@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 
-public class RenderingTypeCallback implements TypeCallback<Renderer> {
+public class RenderingTypeCallback implements AvroTypeCallback<Renderer> {
 
     private static final Logger logger = LoggerFactory.getLogger(RenderingTypeCallback.class);
 
@@ -105,7 +105,7 @@ public class RenderingTypeCallback implements TypeCallback<Renderer> {
                         return "Array";
                     }
                 };
-                return TypeCallback.typeOf(f.schema(), tmp);
+                return AvroTypeCallback.typeOf(f.schema(), tmp);
             }).collect(Collectors.toSet());
 //        AbstractTypeCallback<Set<String>> tmp = new AbstractTypeCallback<Set<String>>(s1 -> {
 //            return s1.getFields().stream().map(f -> f.schema().getNamespace() + "." + f.schema().getName()).collect(Collectors.toSet());

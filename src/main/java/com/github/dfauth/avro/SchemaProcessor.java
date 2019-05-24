@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Optional;
 
-import static com.github.dfauth.avro.TypeCallback.typeOf;
+import static com.github.dfauth.avro.AvroTypeCallback.typeOf;
 
 
 public class SchemaProcessor {
@@ -23,7 +23,7 @@ public class SchemaProcessor {
     }
 
     public SchemaProcessor process(Optional<String> name, Schema schema) {
-        return typeOf(schema, new TypeCallback<SchemaProcessor>(){
+        return typeOf(schema, new AvroTypeCallback<SchemaProcessor>(){
             @Override
             public SchemaProcessor recordType(Schema s) {
                 return new RecordSchemaProcessor(handler);
